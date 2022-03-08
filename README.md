@@ -4,6 +4,10 @@ This repository contains a minimal _simple_ online shop written in [TypeScript](
 
 For styling [Tailwind CSS](https://tailwindcss.com/), [Headless UI](https://headlessui.dev/) and [React Icons](https://react-icons.github.io/react-icons/) are used.
 
+## Demo
+
+A live demo can be found on [jovial-galileo-3008c5.netlify.app](https://jovial-galileo-3008c5.netlify.app/).
+
 ## Quickstart
 
 Install all dependencies via `yarn`/`npm`/`pnpm`:
