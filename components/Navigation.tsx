@@ -1,7 +1,7 @@
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
 import CartContext from 'context/Cart'
 import Link from 'next/link'
-import {Fragment, useState, FunctionComponent, useContext, useEffect} from 'react'
+import {Fragment, useState, FunctionComponent, useContext} from 'react'
 import {HiOutlineMenuAlt1, HiOutlineSearch, HiOutlineShoppingBag, HiOutlineX} from 'react-icons/hi'
 
 const navigation = {

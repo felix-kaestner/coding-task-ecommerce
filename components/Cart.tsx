@@ -1,7 +1,6 @@
 import {Dialog, Transition} from '@headlessui/react'
 import CartContext from 'context/Cart'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 import {ForwardRefRenderFunction, useContext} from 'react'
 import {forwardRef, Fragment, useState, useImperativeHandle} from 'react'
 import {HiOutlineX} from 'react-icons/hi'
