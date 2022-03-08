@@ -1,85 +1,102 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import Layout from 'components/Layout'
+import type {NextPage} from 'next'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout title="Online-Shop">
+      <div className="relative overflow-hidden">
+        <div className="pt-8 pb-96 sm:pt-16 sm:pb-48 lg:pt-56 lg:pb-72">
+          <div className="relative px-4 sm:static sm:px-6 lg:px-8">
+            <div className="sm:max-w-lg">
+              <h1 className="font text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+                Summer styles are finally here
+              </h1>
+              <p className="mt-4 text-xl text-gray-500">
+                This year, our new summer collection will shelter you from the harsh elements of a
+                world that doesn't care if you live or die.
+              </p>
+              <Link href="/products">
+                <a
+                  href=""
+                  className="mt-8 inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700"
+                >
+                  Shop Collection
+                </a>
+              </Link>
+            </div>
+            {/* Decorative image grid */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none mt-8 lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
+            >
+              <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 sm:translate-y-8 md:-translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
+                <div className="flex items-center space-x-6 lg:space-x-8">
+                  <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                    <div className="h-60 w-40 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                    <div className="h-60 w-40 overflow-hidden rounded-lg">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          {/* Spacer*/}
+          <div className="h-96 sm:h-56 lg:h-0" />
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+      </div>
+    </Layout>
   )
 }
 

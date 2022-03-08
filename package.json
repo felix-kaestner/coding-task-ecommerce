@@ -1,16 +1,31 @@
 {
+  "description": "A basic ecommerce shop written in TypeScript, React and Next.js",
+  "repository": "git://github.com/felix-kaestner/commerce",
+  "homepage": "https://github.com/felix-kaestner/commerce",
+  "sideEffects": false,
   "private": true,
+  "author": {
+    "name": "Felix Kästner",
+    "email": "mail@felix-kaestner.com",
+    "url": "https://felix-kaestner.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "fmt": "prettier --write '**/*.{js,jsx,ts,tsx,json,yml,md}'"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.0",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.0",

@@ -1,8 +1,12 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import 'assets/main.css'
+import {CartProvider} from 'context/Cart'
+import type {AppProps} from 'next/app'
+import type {FunctionComponent} from 'react'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App: FunctionComponent<AppProps> = ({Component, pageProps}) => (
+  <CartProvider>
+    <Component {...pageProps} />
+  </CartProvider>
+)
 
-export default MyApp
+export default App
