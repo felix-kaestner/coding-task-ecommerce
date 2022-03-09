@@ -6,10 +6,6 @@ For styling [Tailwind CSS](https://tailwindcss.com/), [Headless UI](https://head
 
 A SQLite3 In-Memory Database is used for persistence.
 
-## Demo
-
-A live demo can be found on [jovial-galileo-3008c5.netlify.app](https://jovial-galileo-3008c5.netlify.app/).
-
 ## Quickstart
 
 Install all dependencies via `yarn`/`npm`/`pnpm`:
