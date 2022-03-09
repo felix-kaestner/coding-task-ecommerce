@@ -1,22 +1,39 @@
 import Layout from 'components/Layout'
+import Loading from 'components/Loading'
 import type Product from 'model/Product'
 import type {NextPage} from 'next'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
+import {withDelay} from 'util/async'
+import {HiOutlineX} from 'react-icons/hi'
 
 const ProductList: NextPage = () => {
+  const router = useRouter()
+  const {search} = router.query
+
+  const [isLoading, setIsLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    fetch('/api/products')
-      .then((res) => res.json())
-      .then(setProducts)
-  }, [])
+    if (!router.isReady) return
+    setIsLoading(true)
+    // Add slight delay to avoid flickering
+    const url = search ? `/api/products?search=${encodeURIComponent(search as string)}` : '/api/products'
+    withDelay(() => fetch(url).then((res) => res.json()), 500).then(setProducts).finally(() => setIsLoading(false))
+  }, [router.isReady, search])
+
+  console.log(isLoading)
+
+  if (isLoading) {
+    return <Layout title="Clothing"><Loading /></Layout>
+  }
 
   return (
     <Layout title="Clothing">
       <div className="bg-white">
         <div className="px-4 sm:px-6 lg:px-8">
+          {search && search.length > 0 && <div className="italic text-gray-700 flex items-center">You searched for: <p className="mx-2 px-6 py-1 rounded-full bg-gray-200 font-semibold flex items-center"><span className="mr-2">{search}</span><span className="cursor-pointer" onClick={() => router.push(`/products`)}><HiOutlineX className="translate-y-px" size={16} /></span></p></div>}
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
               <div key={product.id} className="group relative">
@@ -43,6 +60,7 @@ const ProductList: NextPage = () => {
                 </div>
               </div>
             ))}
+            {products.length === 0 && <p className="text-gray-700">No products found</p>}
           </div>
         </div>
       </div>

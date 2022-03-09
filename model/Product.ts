@@ -6,9 +6,10 @@ interface Product {
   imageAlt: string
   color: string
   description: string
-  highlights: string[]
+  highlights: string
   details: string
-  reviews: {average: number; totalCount: number}
+  reviewAverage: number
+  reviewCount: number
 }
 
 export default Product

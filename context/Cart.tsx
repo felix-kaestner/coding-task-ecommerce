@@ -3,16 +3,8 @@ import Product from 'model/Product'
 import {Context, FunctionComponent, useState} from 'react'
 import {createContext} from 'react'
 
-const initialCart: Cart = {
-  items: [],
-  add() {},
-  remove() {},
-  setQuantity() {},
-  subTotal: 0,
-  itemCount: 0,
-}
-
-const CartContext: Context<Cart> = createContext<Cart>(initialCart)
+// Avoid default value for simplicity
+const CartContext: Context<Cart> = createContext<Cart>({} as Cart)
 
 export const CartProvider: FunctionComponent<{}> = ({children}) => {
   const [items, setItems] = useState<CartItem[]>([])
@@ -22,6 +14,7 @@ export const CartProvider: FunctionComponent<{}> = ({children}) => {
       value={{
         items,
         add: (product: Product) => {
+          
           const newItems = items.slice()
           const p = newItems.find((p) => p.id === product.id)
           if (p) p.quantity++
@@ -38,6 +31,7 @@ export const CartProvider: FunctionComponent<{}> = ({children}) => {
           if (p) p.quantity = value
           setItems(newItems)
         },
+        reset: () => setItems([]),
         subTotal: items.reduce((total, p) => total + p.price * p.quantity, 0),
         itemCount: items.reduce((count, p) => count + p.quantity, 0),
       }}

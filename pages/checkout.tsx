@@ -3,16 +3,59 @@ import CartContext from 'context/Cart'
 import type {NextPage} from 'next'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import {useCallback, useContext} from 'react'
+import {useCallback, useContext, useState} from 'react'
 import {HiTrash} from 'react-icons/hi'
+import {sleep, withDelay} from 'util/async'
+import { AiOutlineLoading } from "react-icons/ai";
+import Order from 'model/Order'
+import {classNames} from 'util/css'
+
+/**
+ * Taken from https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
+ */
+const validateEmail = (email: string) => {
+  return String(email)
+    .toLowerCase()
+    .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+}
 
 const CheckoutForm: NextPage = () => {
   const router = useRouter()
   const cart = useContext(CartContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const [order, setOrder] = useState<Order>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    country: "",
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+    items: []
+  })
 
-  const submitOrder = useCallback(() => {
-    router.push('/checkout/confirm')
-  }, [])
+  const submitOrder = useCallback(async () => {
+    if (cart.itemCount === 0) return
+    setIsLoading(true)
+    // simulate long running async operation
+    await sleep(1_500)
+    try {
+      const response = await withDelay(() => fetch('/api/order', {
+        method: 'POST',
+        body: JSON.stringify({ ...order, items: cart.items}),
+      }), 1_500)
+      const data = await response.json()
+      if (response.status === 200) {
+        router.push(`/order/${data.id}`)
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      
+    }
+    setIsLoading(false)
+  }, [order, cart.items])
 
   return (
     <Layout title="Checkout">
@@ -43,6 +86,7 @@ const CheckoutForm: NextPage = () => {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
+                  onChange={(e) => setOrder({...order, lastName: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -56,6 +100,7 @@ const CheckoutForm: NextPage = () => {
                   name="email-address"
                   id="email-address"
                   autoComplete="email"
+                  onChange={(e) => setOrder({...order, email: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -68,10 +113,11 @@ const CheckoutForm: NextPage = () => {
                   id="country"
                   name="country"
                   autoComplete="country-name"
+                  onChange={(e) => setOrder({...order, country: e.target.value})}
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
-                  <option>United States</option>
-                  <option>Germany</option>
+                  <option value="us">United States</option>
+                  <option value="de">Germany</option>
                 </select>
               </div>
 
@@ -84,6 +130,7 @@ const CheckoutForm: NextPage = () => {
                   name="street-address"
                   id="street-address"
                   autoComplete="street-address"
+                  onChange={(e) => setOrder({...order, street: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -97,6 +144,7 @@ const CheckoutForm: NextPage = () => {
                   name="city"
                   id="city"
                   autoComplete="address-level2"
+                  onChange={(e) => setOrder({...order, city: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -110,6 +158,7 @@ const CheckoutForm: NextPage = () => {
                   name="region"
                   id="region"
                   autoComplete="address-level1"
+                  onChange={(e) => setOrder({...order, state: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -123,6 +172,7 @@ const CheckoutForm: NextPage = () => {
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
+                  onChange={(e) => setOrder({...order, zip: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
@@ -202,8 +252,11 @@ const CheckoutForm: NextPage = () => {
           <div className="h-px w-full bg-gray-200" />
           <button
             onClick={submitOrder}
-            className="mt-8 inline-block w-full rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700"
+            className={classNames(cart.itemCount > 0 && validateEmail(order.email) ? "bg-indigo-600 hover:bg-indigo-700" : "cursor-not-allowed bg-gray-300", "mt-8 flex justify-center items-center w-full rounded-md border border-transparent py-3 px-8 text-center font-medium text-white")}
           >
+            {isLoading && <div className="mr-4 animate-spin" role="status">
+              <AiOutlineLoading size={20} />
+            </div>}
             Complete Order
           </button>
         </div>

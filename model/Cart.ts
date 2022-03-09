@@ -9,6 +9,7 @@ interface Cart {
   add(product: Product): void
   remove(product: Product): void
   setQuantity(product: Product, value: number): void
+  reset: () => void
   subTotal: number
   itemCount: number
 }

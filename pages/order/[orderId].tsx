@@ -1,14 +1,34 @@
 import Layout from 'components/Layout'
+import Loading from 'components/Loading'
 import CartContext from 'context/Cart'
+import Order from 'model/Order'
 import type {NextPage} from 'next'
 import Link from 'next/link'
-import {useContext} from 'react'
+import {useRouter} from 'next/router'
+import {useContext, useEffect, useLayoutEffect, useState} from 'react'
+import {withDelay} from 'util/async'
 
 const CheckoutConfirm: NextPage = () => {
+  const router = useRouter()
+  const {orderId} = router.query
   const cart = useContext(CartContext)
 
+  const [order, setOrder] = useState<Order | null>(null)
+
+  useLayoutEffect(() => {
+    cart.reset()
+  }, [])
+
+  useEffect(() => {
+    if (!orderId) return
+    // Add slight delay to avoid flickering
+    withDelay(() => fetch(`/api/order/${orderId}`).then((res) => res.json()), 500).then(setOrder)
+  }, [orderId])
+
+  if (!order) return <Layout title={`Order ${orderId}`}><Loading/></Layout>
+
   return (
-    <Layout title="Order successfull">
+    <Layout title={`Order ${orderId}`}>
       <div className="max-w-3xl px-4 sm:px-6 lg:px-8">
         <h1 className="font text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Thanks for odering
@@ -18,7 +38,7 @@ const CheckoutConfirm: NextPage = () => {
           know when your order is ready.
         </p>
         <ul role="list" className="divide-y divide-gray-200 lg:mt-4">
-          {cart.items.map((product) => (
+          {order.items.map((product) => (
             <li key={product.id} className="flex py-6">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
@@ -58,7 +78,7 @@ const CheckoutConfirm: NextPage = () => {
         <div className="py-6">
           <div className="flex justify-between py-2">
             <span>Subtotal</span>
-            <span className="font-medium">$64.00</span>
+            <span className="font-medium">${order.items.reduce((total, p) => total + p.price * p.quantity, 0).toFixed(2)}</span>
           </div>
           <div className="flex justify-between py-2">
             <span>Shipping</span>
@@ -66,7 +86,7 @@ const CheckoutConfirm: NextPage = () => {
           </div>
           <div className="flex justify-between py-2">
             <span className="text-lg font-medium">Total</span>
-            <span className="text-lg font-medium">$69.00</span>
+            <span className="text-lg font-medium">${(order.items.reduce((total, p) => total + p.price * p.quantity, 0)+5).toFixed(2)}</span>
           </div>
         </div>
       </div>

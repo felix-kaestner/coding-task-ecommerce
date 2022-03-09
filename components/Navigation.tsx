@@ -1,8 +1,10 @@
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
 import CartContext from 'context/Cart'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import {Fragment, useState, FunctionComponent, useContext} from 'react'
 import {HiOutlineMenuAlt1, HiOutlineSearch, HiOutlineShoppingBag, HiOutlineX} from 'react-icons/hi'
+import {classNames} from 'util/css'
 
 const navigation = {
   categories: [
@@ -12,13 +14,13 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
+          href: '/products',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
           imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
         {
           name: 'Basic Tees',
-          href: '#',
+          href: '/products',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
           imageAlt:
             'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
@@ -29,38 +31,38 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            {name: 'Tops', href: '#'},
-            {name: 'Dresses', href: '#'},
-            {name: 'Pants', href: '#'},
-            {name: 'Denim', href: '#'},
-            {name: 'Sweaters', href: '#'},
-            {name: 'T-Shirts', href: '#'},
-            {name: 'Jackets', href: '#'},
-            {name: 'Activewear', href: '#'},
-            {name: 'Browse All', href: '#'},
+            {name: 'Tops', href: '/products'},
+            {name: 'Dresses', href: '/products'},
+            {name: 'Pants', href: '/products'},
+            {name: 'Denim', href: '/products'},
+            {name: 'Sweaters', href: '/products'},
+            {name: 'T-Shirts', href: '/products'},
+            {name: 'Jackets', href: '/products'},
+            {name: 'Activewear', href: '/products'},
+            {name: 'Browse All', href: '/products'},
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            {name: 'Watches', href: '#'},
-            {name: 'Wallets', href: '#'},
-            {name: 'Bags', href: '#'},
-            {name: 'Sunglasses', href: '#'},
-            {name: 'Hats', href: '#'},
-            {name: 'Belts', href: '#'},
+            {name: 'Watches', href: '/products'},
+            {name: 'Wallets', href: '/products'},
+            {name: 'Bags', href: '/products'},
+            {name: 'Sunglasses', href: '/products'},
+            {name: 'Hats', href: '/products'},
+            {name: 'Belts', href: '/products'},
           ],
         },
         {
           id: 'brands',
           name: 'Brands',
           items: [
-            {name: 'Full Nelson', href: '#'},
-            {name: 'My Way', href: '#'},
-            {name: 'Re-Arranged', href: '#'},
-            {name: 'Counterfeit', href: '#'},
-            {name: 'Significant Other', href: '#'},
+            {name: 'Full Nelson', href: '/products'},
+            {name: 'My Way', href: '/products'},
+            {name: 'Re-Arranged', href: '/products'},
+            {name: 'Counterfeit', href: '/products'},
+            {name: 'Significant Other', href: '/products'},
           ],
         },
       ],
@@ -71,14 +73,14 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
+          href: '/products',
           imageSrc:
             'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
           imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
         },
         {
           name: 'Artwork Tees',
-          href: '#',
+          href: '/products',
           imageSrc:
             'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
           imageAlt:
@@ -90,48 +92,44 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            {name: 'Tops', href: '#'},
-            {name: 'Pants', href: '#'},
-            {name: 'Sweaters', href: '#'},
-            {name: 'T-Shirts', href: '#'},
-            {name: 'Jackets', href: '#'},
-            {name: 'Activewear', href: '#'},
-            {name: 'Browse All', href: '#'},
+            {name: 'Tops', href: '/products'},
+            {name: 'Pants', href: '/products'},
+            {name: 'Sweaters', href: '/products'},
+            {name: 'T-Shirts', href: '/products'},
+            {name: 'Jackets', href: '/products'},
+            {name: 'Activewear', href: '/products'},
+            {name: 'Browse All', href: '/products'},
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            {name: 'Watches', href: '#'},
-            {name: 'Wallets', href: '#'},
-            {name: 'Bags', href: '#'},
-            {name: 'Sunglasses', href: '#'},
-            {name: 'Hats', href: '#'},
-            {name: 'Belts', href: '#'},
+            {name: 'Watches', href: '/products'},
+            {name: 'Wallets', href: '/products'},
+            {name: 'Bags', href: '/products'},
+            {name: 'Sunglasses', href: '/products'},
+            {name: 'Hats', href: '/products'},
+            {name: 'Belts', href: '/products'},
           ],
         },
         {
           id: 'brands',
           name: 'Brands',
           items: [
-            {name: 'Re-Arranged', href: '#'},
-            {name: 'Counterfeit', href: '#'},
-            {name: 'Full Nelson', href: '#'},
-            {name: 'My Way', href: '#'},
+            {name: 'Re-Arranged', href: '/products'},
+            {name: 'Counterfeit', href: '/products'},
+            {name: 'Full Nelson', href: '/products'},
+            {name: 'My Way', href: '/products'},
           ],
         },
       ],
     },
   ],
   pages: [
-    {name: 'Company', href: '#'},
-    {name: 'Stores', href: '#'},
+    {name: 'Company', href: '/'},
+    {name: 'Stores', href: '/'},
   ],
-}
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
 }
 
 interface NavigationProps {
@@ -140,6 +138,8 @@ interface NavigationProps {
 
 const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
   const [open, setOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+  const router = useRouter()
   const cart = useContext(CartContext)
 
   return (
@@ -214,10 +214,12 @@ const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
                                 className="object-cover object-center"
                               />
                             </div>
-                            <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                              <span className="absolute inset-0 z-10" aria-hidden="true" />
-                              {item.name}
-                            </a>
+                            <Link href={item.href}>
+                              <a className="mt-6 block font-medium text-gray-900">
+                                <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                {item.name}
+                              </a>
+                            </Link>
                             <p aria-hidden="true" className="mt-1">
                               Shop now
                             </p>
@@ -239,9 +241,11 @@ const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
                           >
                             {section.items.map((item) => (
                               <li key={item.name} className="flow-root">
-                                <a href={item.href} className="-m-2 block p-2 text-gray-500">
-                                  {item.name}
-                                </a>
+                                <Link href={item.href}>
+                                  <a className="-m-2 block p-2 text-gray-500">
+                                    {item.name}
+                                  </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -255,9 +259,11 @@ const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
               <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                 {navigation.pages.map((page) => (
                   <div key={page.name} className="flow-root">
-                    <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                      {page.name}
-                    </a>
+                    <Link href={page.href}>
+                      <a className="-m-2 block p-2 font-medium text-gray-900">
+                        {page.name}
+                      </a>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -394,9 +400,11 @@ const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
                                           >
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-gray-800">
-                                                  {item.name}
-                                                </a>
+                                                <Link href={item.href}>
+                                                  <a className="hover:text-gray-800">
+                                                    {item.name}
+                                                  </a>
+                                                </Link>
                                               </li>
                                             ))}
                                           </ul>
@@ -439,7 +447,16 @@ const Navigation: FunctionComponent<NavigationProps> = ({onToggleCart}) => {
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    autoComplete="search"
+                    placeholder="Search for products..."
+                    onChange={(e) => setSearchTerm(e.target.value ?? "")}
+                    className="block w-full rounded-full placeholder:italic placeholder:text-slate-400 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                  <a href="#" onClick={() => router.push(`/products?search=${encodeURIComponent(searchTerm)}`)} className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <HiOutlineSearch className="h-6 w-6" aria-hidden="true" />
                   </a>

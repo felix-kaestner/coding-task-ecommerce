@@ -5,9 +5,8 @@ import Link from 'next/link'
 const Home: NextPage = () => {
   return (
     <Layout title="Online-Shop">
-      <div className="relative overflow-hidden">
-        <div className="pt-8 pb-96 sm:pt-16 sm:pb-48 lg:pt-56 lg:pb-72">
-          <div className="relative px-4 sm:static sm:px-6 lg:px-8">
+      <div className="relative overflow-hidden pt-8 pb-96 sm:pt-16 sm:pb-48 lg:pt-56 lg:pb-72">
+          <div className="px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <h1 className="font text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
                 Summer styles are finally here
@@ -17,10 +16,7 @@ const Home: NextPage = () => {
                 world that doesn't care if you live or die.
               </p>
               <Link href="/products">
-                <a
-                  href=""
-                  className="mt-8 inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700"
-                >
+                <a className="mt-8 inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700">
                   Shop Collection
                 </a>
               </Link>
@@ -36,14 +32,12 @@ const Home: NextPage = () => {
                     <div className="h-60 w-40 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
@@ -52,21 +46,18 @@ const Home: NextPage = () => {
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
@@ -75,14 +66,12 @@ const Home: NextPage = () => {
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <div className="h-60 w-40 overflow-hidden rounded-lg">
                       <img
                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
-                        alt=""
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
@@ -94,7 +83,6 @@ const Home: NextPage = () => {
 
           {/* Spacer*/}
           <div className="h-96 sm:h-56 lg:h-0" />
-        </div>
       </div>
     </Layout>
   )

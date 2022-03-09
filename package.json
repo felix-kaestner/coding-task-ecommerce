@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node database.js && next build",
     "start": "next start",
     "fmt": "prettier --write '**/*.{js,jsx,ts,tsx,json,yml,md}'"
   },
@@ -19,10 +19,12 @@
     "@headlessui/react": "^1.5.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
+    "@types/sqlite3": "^3.1.8",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",

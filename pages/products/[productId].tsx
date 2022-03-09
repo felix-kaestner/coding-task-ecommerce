@@ -1,14 +1,13 @@
 import Layout from 'components/Layout'
+import Loading from 'components/Loading'
 import CartContext from 'context/Cart'
 import type Product from 'model/Product'
 import type {NextPage} from 'next'
 import {useRouter} from 'next/router'
 import {useEffect, useState, useContext} from 'react'
 import {HiStar} from 'react-icons/hi'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import {withDelay} from 'util/async'
+import {classNames} from 'util/css'
 
 const ProductInfo: NextPage = () => {
   const router = useRouter()
@@ -19,12 +18,11 @@ const ProductInfo: NextPage = () => {
 
   useEffect(() => {
     if (!productId) return
-    fetch(`/api/products/${productId}`)
-      .then((res) => res.json())
-      .then(setProduct)
+    // Add slight delay to avoid flickering
+    withDelay(() => fetch(`/api/products/${productId}`).then((res) => res.json()), 500).then(setProduct)
   }, [productId])
 
-  if (!product) return <></>
+  if (!product) return <Layout title=""><Loading/></Layout>
 
   return (
     <Layout title={product.name}>
@@ -66,16 +64,16 @@ const ProductInfo: NextPage = () => {
                       <HiStar
                         key={rating}
                         className={classNames(
-                          product.reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                          product.reviewAverage > rating ? 'text-gray-900' : 'text-gray-200',
                           'h-5 w-5 flex-shrink-0'
                         )}
                         aria-hidden="true"
                       />
                     ))}
                   </div>
-                  <p className="sr-only">{product.reviews.average} out of 5 stars</p>
+                  <p className="sr-only">{product.reviewAverage} out of 5 stars</p>
                   <a className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    {product.reviews.totalCount} reviews
+                    {product.reviewCount} reviews
                   </a>
                 </div>
               </div>
@@ -95,7 +93,7 @@ const ProductInfo: NextPage = () => {
 
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
+                  {product.highlights.split(',').map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>
                     </li>
