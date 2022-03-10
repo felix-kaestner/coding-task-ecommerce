@@ -1,6 +1,6 @@
 # React + Next.js Online Shop
 
-This repository contains a minimal _simple_ online shop written in [TypeScript](https://www.typescriptlang.org/) with [React](https://reactjs.org/) and [Next.js](https://nextjs.org/).
+This repository contains a minimal _simple_ online shop written in [TypeScript](https://www.typescriptlang.org/) with [React](https://reactjs.org/) and [Next.js](https://nextjs.org/), I wrote as part of a Coding Task during a job application.
 
 For styling [Tailwind CSS](https://tailwindcss.com/), [Headless UI](https://headlessui.dev/) and [React Icons](https://react-icons.github.io/react-icons/) are used.
 
