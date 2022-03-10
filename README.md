@@ -1,10 +1,10 @@
 # React + Next.js Online Shop
 
-This repository contains a minimal _simple_ online shop written in [TypeScript](https://www.typescriptlang.org/) with [React](https://reactjs.org/) and [Next.js](https://nextjs.org/), written as part of a Coding Task during a job application.
+This repository contains a minimal _simple_ online shop written in [TypeScript](https://www.typescriptlang.org/) with [React](https://reactjs.org/) and [Next.js](https://nextjs.org/), written as part of a coding task during a job application.
 
 For styling [Tailwind CSS](https://tailwindcss.com/), [Headless UI](https://headlessui.dev/) and [React Icons](https://react-icons.github.io/react-icons/) are used.
 
-A SQLite3 In-Memory Database is used for persistence.
+A SQLite3 Database is used for persistence.
 
 ## Quickstart
 
