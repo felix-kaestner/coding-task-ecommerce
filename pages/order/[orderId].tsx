@@ -5,7 +5,7 @@ import Order from 'model/Order'
 import type {NextPage} from 'next'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import {useContext, useEffect, useLayoutEffect, useState} from 'react'
+import {useContext, useEffect, useEffect, useState} from 'react'
 import {withDelay} from 'util/async'
 
 const CheckoutConfirm: NextPage = () => {
@@ -15,7 +15,7 @@ const CheckoutConfirm: NextPage = () => {
 
   const [order, setOrder] = useState<Order | null>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     cart.reset()
   }, [])
 
